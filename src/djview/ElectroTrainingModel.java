@@ -4,13 +4,14 @@ package djview;
 import java.util.ArrayList;
 import java.util.Random;
 
-public class ElectroTrainingModel implements ElectroTrainingInteface, Runnable {
+public class ElectroTrainingModel implements ElectroTrainingInterface, Runnable {
     @SuppressWarnings("rawtypes")
     ArrayList beatObservers = new ArrayList();
     @SuppressWarnings("rawtypes")
     ArrayList bpmObservers = new ArrayList();
     int time = 1000;
     int nivel=1;
+    int ultimonivel=1;
     int tiempo=15000;
     Random random = new Random(System.currentTimeMillis());
     Thread thread;
@@ -19,10 +20,11 @@ public class ElectroTrainingModel implements ElectroTrainingInteface, Runnable {
     int performance[]={2,4,1,5};
     boolean manual;
     boolean tipoautomatico; //true es muscular, false performance
+    boolean iniciar;
 
     private ElectroTrainingModel() {
 	thread = new Thread(this);
-	thread.start();//
+	thread.start();
     }
     public static ElectroTrainingModel getInstance() {
 		if(uniqueInstance == null){
@@ -33,49 +35,132 @@ public class ElectroTrainingModel implements ElectroTrainingInteface, Runnable {
 			return uniqueInstance;}
 	}
     public void run(){
-        int ultimonivel=nivel;
         
-        for(;;){
-            if(manual){
-                switch (ultimonivel){
-                    case 1:
-                    case 2:
-                    case 3:
-                    case 4:
-                    case 5:
-                    case 6:
-                    case 7:
-                }
-                
-            }
-            else{
-                if(tipoautomatico){
+        notifyBPMObservers();
+        int ti=this.tiempo;
+        int secuencia=0;
+        if(this.nivel>7){       
+            switch (nivel){
+                case 8:
+                    ultimonivel=muscular[secuencia];
+                    notifyBPMObservers();
+                    break;
+                case 9:
+                    ultimonivel=performance[secuencia];
+                    notifyBPMObservers();
+                    break;
+            }                        
+        }
+        else{
+            ultimonivel=this.nivel;
+        }
+        while(this.iniciar){
+            
+            switch (ultimonivel){
+                case 1:
+                    notifyBeatObservers();
+                    ti=ti-500;
+                    try {
+                        thread.sleep(500);
+                    } catch (Exception e) {
+                    }                    
+                    break;
+                case 2:
+                    notifyBeatObservers();
+                    ti=ti-166;
+                    try {
+                        thread.sleep(166);
+                    } catch (Exception e) {
+                    }                    
+                    break;
+                case 3:
+                    notifyBeatObservers();
+                    ti=ti-100;
+                    try {
+                        thread.sleep(100);
+                    } catch (Exception e) {
+                    }                    
+                    break;
+                case 4:
+                    notifyBeatObservers();
+                    ti=ti-40;
+                    try {
+                        thread.sleep(40);
+                    } catch (Exception e) {
+                    }                    
+                    break;
+                case 5:
+                    notifyBeatObservers();
+                    ti=ti-20;
+                    try {
+                        thread.sleep(20);
+                    } catch (Exception e) {
+                    }
                     
+                    break;
+                case 6:
+                    notifyBeatObservers();
+                    ti=ti-14;
+                    try {
+                        thread.sleep(14);
+                    } catch (Exception e) {
+                    }                    
+                    break;
+                case 7:
+                    notifyBeatObservers();
+                    ti=ti-10;
+                    try {
+                        thread.sleep(10);
+                    } catch (Exception e) {
+                    }                    
+                    break;
+            }
+            if(ti<=0){
+                if(this.nivel>7){                    
+                    secuencia=secuencia+1;
+                    if(secuencia>3){
+                        this.iniciar=false;
+                    }
+                    else{
+                        switch (nivel){
+                            case 8:
+                                ultimonivel=muscular[secuencia];
+                                break;
+                            case 9:
+                                ultimonivel=performance[secuencia];
+                                break;
+                        }
+                        ti=this.tiempo;
+                        notifyBPMObservers();
+                    }
                 }
                 else{
-                    
-                }
+                    this.offf();
+                }                
             }
         }
         
     }
 
-    public void on() {
+    public void onn() {
         thread = new Thread(this);
+        this.iniciar=true;
 	thread.start();
     }
 
-    public void off() {
-        
+    public void offf() {
+        this.iniciar=false;
     }
 
-    public void setBPM(int bpm) {
-        this.manual=true;
+    public void setNivel(int bpm) {
+        //this.manual=true;
         this.nivel=bpm;
+        ultimonivel=nivel;
+        notifyBPMObservers();
     }
 
-    public int getBPM() {
-        return 0;
+    public int getNivel() {
+        return this.ultimonivel;
     }
 
     public void registerObserver(BeatObserver o) {
@@ -88,6 +173,12 @@ public class ElectroTrainingModel implements ElectroTrainingInteface, Runnable {
 			beatObservers.remove(i);
 		}
     }
+    public void notifyBeatObservers() {
+	for(int i = 0; i < beatObservers.size(); i++) {
+            BeatObserver observer = (BeatObserver)beatObservers.get(i);
+            observer.updateBeat();
+	}
+    }
 
     public void registerObserver(BPMObserver o) {
         bpmObservers.add(o);
@@ -99,9 +190,11 @@ public class ElectroTrainingModel implements ElectroTrainingInteface, Runnable {
 		bpmObservers.remove(i);
             }
     }
-
-    public void initialize() {
-        
+    public void notifyBPMObservers() {
+	for(int i = 0; i < bpmObservers.size(); i++) {
+            BPMObserver observer = (BPMObserver)bpmObservers.get(i);
+            observer.updateBPM();
+	}
     }
-    
+
 }

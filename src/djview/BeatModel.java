@@ -1,34 +1,29 @@
 package djview;
-  
+
 import javax.sound.midi.*;
 import java.util.*;
 
 public class BeatModel implements BeatModelInterface, MetaEventListener {
     Sequencer sequencer;
-	@SuppressWarnings("rawtypes")
-	ArrayList beatObservers = new ArrayList();
-	@SuppressWarnings("rawtypes")
-	ArrayList bpmObservers = new ArrayList();
-        int bpm = 90;
-        Sequence sequence;
-        Track track;
+    ArrayList beatObservers = new ArrayList();
+    ArrayList bpmObservers = new ArrayList();
+    int bpm = 90;
+    Sequence sequence;
+    Track track;
  
-	public void initialize() {
-            setUpMidi();
-            buildTrackAndStart();
+    public void initialize() {
+        setUpMidi();
+        buildTrackAndStart();
 	}
-        
     public void on() {
         sequencer.start();
-//        setBPM(90);
+        //setBPM(90);
         setBPM(getBPM());
     }
- 
     public void off() {
 		setBPM(0);
 		sequencer.stop();
     }
- 
     public void setBPM(int bpm) {
 		this.bpm = bpm;
 
@@ -39,84 +34,54 @@ public class BeatModel implements BeatModelInterface, MetaEventListener {
 		sequencer.setTempoInBPM(getBPM());
 		notifyBPMObservers();
     }
-  
-	public int getBPM() {
+    public int getBPM() {
 		return bpm;
 	}
-  
-	void beatEvent() {
+    void beatEvent() {
 		notifyBeatObservers();
 	}
-  
-   
-	@SuppressWarnings("unchecked")
-	public void registerObserver(BeatObserver o) {
+    public void registerObserver(BeatObserver o) {
 		beatObservers.add(o);
 	}
-  
-	public void notifyBeatObservers() {
+    public void notifyBeatObservers() {
 		for(int i = 0; i < beatObservers.size(); i++) {
 			BeatObserver observer = (BeatObserver)beatObservers.get(i);
 			observer.updateBeat();
 		}
 	}
-  
-	@SuppressWarnings("unchecked")
-	public void registerObserver(BPMObserver o) {
-		bpmObservers.add(o);
+    public void registerObserver(BPMObserver o) {
+	bpmObservers.add(o);
 	}
-  
-	public void notifyBPMObservers() {
+    public void notifyBPMObservers() {
 		for(int i = 0; i < bpmObservers.size(); i++) {
 			BPMObserver observer = (BPMObserver)bpmObservers.get(i);
 			observer.updateBPM();
 		}
 	}
-
-
-	public void removeObserver(BeatObserver o) {
+    public void removeObserver(BeatObserver o) {
 		int i = beatObservers.indexOf(o);
 		if (i >= 0) {
 			beatObservers.remove(i);
 		}
 	}
-
-
-
-	public void removeObserver(BPMObserver o) {
+    public void removeObserver(BPMObserver o) {
 		int i = bpmObservers.indexOf(o);
 		if (i >= 0) {
 			bpmObservers.remove(i);
 		}
 	}
-
-
     public void meta(MetaMessage message) {
-//        if (message.getType() == 47) {
-//			beatEvent();
-//        	sequencer.start();
-//        	setBPM(getBPM());
-//        }
-    	
-    	//FIX
-    	if (message.getType() == 0x2F ) {
+        if (message.getType() == 47) {
 			beatEvent();
-			sequencer.setMicrosecondPosition(0);
-            sequencer.setTickPosition(0) ; 
-            sequencer.start(); 
-        	setBPM(getBPM());	
+        	sequencer.start();
+        	setBPM(getBPM());
         }
     }
-
-	public void setUpMidi() {
+    public void setUpMidi() {
 		try {
 			sequencer = MidiSystem.getSequencer();
 			sequencer.open();
 			sequencer.addMetaEventListener(this);
-			
-			//Fix
-			sequencer.setLoopCount(Sequencer.LOOP_CONTINUOUSLY);
-			
 			sequence = new Sequence(Sequence.PPQ,4);
 			track = sequence.createTrack();
 			sequencer.setTempoInBPM(getBPM());
@@ -124,8 +89,7 @@ public class BeatModel implements BeatModelInterface, MetaEventListener {
 				e.printStackTrace();
 		}
     } 
-
-     public void buildTrackAndStart() {
+    public void buildTrackAndStart() {
         int[] trackList = {35, 0, 46, 0};
     
         sequence.deleteTrack(null);
@@ -139,7 +103,6 @@ public class BeatModel implements BeatModelInterface, MetaEventListener {
 			e.printStackTrace();
 		}
     } 
-            
     public void makeTracks(int[] list) {        
        
        for (int i = 0; i < list.length; i++) {
@@ -151,7 +114,6 @@ public class BeatModel implements BeatModelInterface, MetaEventListener {
           }
        }
     }
-        
     public  MidiEvent makeEvent(int comd, int chan, int one, int two, int tick) {
         MidiEvent event = null;
         try {
