@@ -5,7 +5,7 @@ import java.awt.event.*;
 import javax.swing.*;
 
 public class ElectroTrainingView implements ActionListener,  BeatObserver, BPMObserver {
-    BeatModelInterface model;
+    ElectroTrainingInterface model;
     ControllerInterface controller;
     JFrame viewFrame;
     JPanel viewPanel;
@@ -23,13 +23,12 @@ public class ElectroTrainingView implements ActionListener,  BeatObserver, BPMOb
     JMenuItem startMenuItem;
     JMenuItem stopMenuItem;
 
-    public ElectroTrainingView(ControllerInterface controller, BeatModelInterface model) {	
+    public ElectroTrainingView(ControllerInterface controller, ElectroTrainingInterface model) {	
 		this.controller = controller;
 		this.model = model;
 		model.registerObserver((BeatObserver)this);
 		model.registerObserver((BPMObserver)this);
     }
-    
     public void createView() {
 	// Create all Swing components here
         viewPanel = new JPanel(new GridLayout(1, 2));
@@ -47,8 +46,6 @@ public class ElectroTrainingView implements ActionListener,  BeatObserver, BPMOb
         viewFrame.pack();
         viewFrame.setVisible(true);
     }
-  
-  
     public void createControls() {
 	// Create all Swing components here
         JFrame.setDefaultLookAndFeelDecorated(true);
@@ -116,9 +113,6 @@ public class ElectroTrainingView implements ActionListener,  BeatObserver, BPMOb
         controlFrame.pack();
         controlFrame.setVisible(true);
     }
-    
-    
-    
     public void enableStopMenuItem() {
     	stopMenuItem.setEnabled(true);
     }
@@ -141,10 +135,9 @@ public class ElectroTrainingView implements ActionListener,  BeatObserver, BPMOb
 			controller.decreaseBPM();
 	}
     }
-
     public void updateBPM() {
 	if (model != null) {
-            int bpm = model.getBPM();
+            int bpm = model.getNivel();
             if (bpm == 0) {
 		if (bpmOutputLabel != null) {
                     bpmOutputLabel.setText("offline");
@@ -152,18 +145,16 @@ public class ElectroTrainingView implements ActionListener,  BeatObserver, BPMOb
             } else {
 		if (bpmOutputLabel != null) {
                     //bpmOutputLabel.setText("Current BPM: " + model.getBPM()+ " Instancias: "+ model.getContador());
-                    bpmOutputLabel.setText("Ejercicio Actual: " + model.getBPM());
+                    bpmOutputLabel.setText("Ejercicio Actual: " + model.getNivel());
 		}
             }
 	}
     }
-  
-	public void updateBeat() {
+    public void updateBeat() {
 		if (beatBar != null) {
 			 beatBar.setValue(100);
 		}
 	}
-
     void disableSet() {
         increaseBPMButton.setEnabled(false);
         decreaseBPMButton.setEnabled(false);

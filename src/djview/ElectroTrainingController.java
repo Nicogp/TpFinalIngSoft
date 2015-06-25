@@ -1,14 +1,6 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
+
 package djview;
 
-/**
- *
- * @author NicolÃ¡s
- */
 public class ElectroTrainingController implements ControllerInterface{
     ElectroTrainingInterface model;
     //DJView view;
@@ -17,7 +9,7 @@ public class ElectroTrainingController implements ControllerInterface{
     public ElectroTrainingController(ElectroTrainingInterface model) {
     	this.model = model;
 	//view = new DJView(this, new ElectroAdapter(model));
-        view = new ElectroTrainingView(this, new ElectroAdapter(model));
+        view = new ElectroTrainingView(this, model);
         view.createView();
         view.createControls();
         view.disableStopMenuItem();
