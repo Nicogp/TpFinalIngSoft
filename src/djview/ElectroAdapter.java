@@ -13,15 +13,12 @@ public class ElectroAdapter implements BeatModelInterface{
 	}
 
     public void initialize() {}
-  
     public void on() {
-        electro.onn();
+        electro.on();
     }
-  
     public void off() {
-        electro.offf();
+        electro.off();
     }
-   
     public int getBPM() {
 	return electro.getNivel();
     }

@@ -4,8 +4,8 @@ package djview;
 
 public interface ElectroTrainingInterface {
     
-    void onn();
-    void offf();
+    void on();
+    void off();
     void setNivel(int bpm);
     int  getNivel();
     void registerObserver(BeatObserver o);

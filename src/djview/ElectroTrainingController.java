@@ -25,19 +25,17 @@ public class ElectroTrainingController implements ControllerInterface{
     }
   
     public void start() {
-        this.model.onn();
+        this.model.on();
         view.disableStartMenuItem();
         view.enableStopMenuItem();
         view.disableSet();
     }
- 
     public void stop() {
-        this.model.offf();
+        this.model.off();
 	view.disableStopMenuItem();
 	view.enableStartMenuItem();
         view.enableSet();
     }
-    
     public void increaseBPM() {
         int nivel =model.getNivel();
         nivel=nivel+1;
@@ -53,9 +51,7 @@ public class ElectroTrainingController implements ControllerInterface{
         }
     }
     public void setBPM(int nivel) {
-        if(0<nivel&&9>=nivel){
-            model.setNivel(nivel);
-        }
+            model.setNivel(nivel);       
     }
     
 }

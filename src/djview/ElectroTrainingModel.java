@@ -135,28 +135,31 @@ public class ElectroTrainingModel implements ElectroTrainingInterface, Runnable 
                     }
                 }
                 else{
-                    this.offf();
+                    this.off();
                 }                
             }
         }
         
     }
 
-    public void onn() {
+    public void on() {
         thread = new Thread(this);
         this.iniciar=true;
 	thread.start();
     }
 
-    public void offf() {
+    public void off() {
         this.iniciar=false;
     }
 
-    public void setNivel(int bpm) {
+    public void setNivel(int nivel) {
         //this.manual=true;
-        this.nivel=bpm;
-        ultimonivel=nivel;
-        notifyBPMObservers();
+        if(0<nivel&&9>=nivel){
+            this.nivel=nivel;
+            ultimonivel=nivel;
+            notifyBPMObservers();
+        }
+        
     }
 
     public int getNivel() {
