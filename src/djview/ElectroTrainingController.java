@@ -11,11 +11,13 @@ package djview;
  */
 public class ElectroTrainingController implements ControllerInterface{
     ElectroTrainingInterface model;
-    DJView view;
+    //DJView view;
+    ElectroTrainingView view;
   
     public ElectroTrainingController(ElectroTrainingInterface model) {
     	this.model = model;
-	view = new DJView(this, new ElectroAdapter(model));
+	//view = new DJView(this, new ElectroAdapter(model));
+        view = new ElectroTrainingView(this, new ElectroAdapter(model));
         view.createView();
         view.createControls();
         view.disableStopMenuItem();
@@ -26,12 +28,15 @@ public class ElectroTrainingController implements ControllerInterface{
         this.model.onn();
         view.disableStartMenuItem();
         view.enableStopMenuItem();
+        view.disableSet();
     }
  
     public void stop() {
         this.model.offf();
 	view.disableStopMenuItem();
-	view.enableStartMenuItem();}
+	view.enableStartMenuItem();
+        view.enableSet();
+    }
     
     public void increaseBPM() {
         int nivel =model.getNivel();
