@@ -22,6 +22,8 @@ public class DJView implements ActionListener,  BeatObserver, BPMObserver {
     JMenu menu;
     JMenuItem startMenuItem;
     JMenuItem stopMenuItem;
+    JComboBox cbox;
+    String modelos[]={"BeatModel","HeartModel","ElectroTrainingModel"};
 
     public DJView(ControllerInterface controller, BeatModelInterface model) {	
 		this.controller = controller;
@@ -37,11 +39,33 @@ public class DJView implements ActionListener,  BeatObserver, BPMObserver {
         viewFrame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         viewFrame.setSize(new Dimension(100, 80));
         bpmOutputLabel = new JLabel("offline", SwingConstants.CENTER);
-		beatBar = new BeatBar();
-		beatBar.setValue(0);
+	beatBar = new BeatBar();
+	beatBar.setValue(0);
+        cbox=new JComboBox(modelos);
+        cbox.addActionListener(new ActionListener() {
+                
+                public void actionPerformed(ActionEvent e) {
+                    if("BeatModel".equals(cbox.getSelectedItem())){
+                        //model.off();
+                        controller=new BeatController(model);
+                    
+                    }
+                    if("HeartModel".equals(cbox.getSelectedItem())){
+                        HeartModel heartModel = HeartModel.getInstance();
+                        //model.off();
+                        controller=new HeartController(heartModel);
+                    
+                    }
+            
+        }
+        
+        
+        });
+        
         JPanel bpmPanel = new JPanel(new GridLayout(2, 1));
-		bpmPanel.add(beatBar);
+	bpmPanel.add(beatBar);
         bpmPanel.add(bpmOutputLabel);
+        bpmPanel.add(cbox);
         viewPanel.add(bpmPanel);
         viewFrame.getContentPane().add(viewPanel, BorderLayout.CENTER);
         viewFrame.pack();
