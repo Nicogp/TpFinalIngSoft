@@ -1,6 +1,6 @@
 package djview;
   
-public class BeatController implements ControllerInterface {
+public class BeatController implements ControllerInterface{
 	BeatModelInterface model;
 	DJView view;
    

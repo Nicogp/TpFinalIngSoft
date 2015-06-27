@@ -10,7 +10,7 @@ public class ElectroAdapter implements BeatModelInterface{
  
     public ElectroAdapter(ElectroTrainingInterface electro) {
 		this.electro=electro;
-	}
+    }
 
     public void initialize() {}
     public void on() {

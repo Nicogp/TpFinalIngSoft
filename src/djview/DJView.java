@@ -4,7 +4,7 @@ import java.awt.*;
 import java.awt.event.*;
 import javax.swing.*;
 
-public class DJView implements ActionListener,  BeatObserver, BPMObserver {
+public class DJView implements InterfaceVistas, ActionListener,  BeatObserver, BPMObserver {
     BeatModelInterface model;
     ControllerInterface controller;
     JFrame viewFrame;
@@ -71,7 +71,6 @@ public class DJView implements ActionListener,  BeatObserver, BPMObserver {
         viewFrame.pack();
         viewFrame.setVisible(true);
 	}
-  
   
     public void createControls() {
 		// Create all Swing components here
@@ -143,26 +142,26 @@ public class DJView implements ActionListener,  BeatObserver, BPMObserver {
         controlFrame.setVisible(true);
     }
 
-	public void enableStopMenuItem() {
+    public void enableStopMenuItem() {
     	stopMenuItem.setEnabled(true);
 	}
 
-	public void disableStopMenuItem() {
+    public void disableStopMenuItem() {
     	stopMenuItem.setEnabled(false);
 	}
 
-	public void enableStartMenuItem() {
+    public void enableStartMenuItem() {
     	startMenuItem.setEnabled(true);
 	}
 
-	public void disableStartMenuItem() {
+    public void disableStartMenuItem() {
     	startMenuItem.setEnabled(false);
 	}
 
     public void actionPerformed(ActionEvent event) {
 		if (event.getSource() == setBPMButton) {
 			int bpm = Integer.parseInt(bpmTextField.getText());
-        	controller.setBPM(bpm);
+                        controller.setBPM(bpm);
 		} else if (event.getSource() == increaseBPMButton) {
 			controller.increaseBPM();
 		} else if (event.getSource() == decreaseBPMButton) {
@@ -170,7 +169,7 @@ public class DJView implements ActionListener,  BeatObserver, BPMObserver {
 		}
     }
 
-	public void updateBPM() {
+    public void updateBPM() {
 		if (model != null) {
 			int bpm = model.getBPM();
 			if (bpm == 0) {
@@ -186,7 +185,7 @@ public class DJView implements ActionListener,  BeatObserver, BPMObserver {
 		}
 	}
   
-	public void updateBeat() {
+    public void updateBeat() {
 		if (beatBar != null) {
 			 beatBar.setValue(100);
 		}

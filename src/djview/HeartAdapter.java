@@ -3,15 +3,10 @@ package djview;
 public class HeartAdapter implements BeatModelInterface {
 	HeartModelInterface heart;
  
-	public HeartAdapter(HeartModelInterface heart) {
+    public HeartAdapter(HeartModelInterface heart) {
 		this.heart = heart;
 	}
-	/*
-	public int getContador()
-	{
-		return heart.getContador();
-	}
-	*/
+
     public void initialize() {}
   
     public void on() {}
@@ -25,19 +20,19 @@ public class HeartAdapter implements BeatModelInterface {
   
     public void setBPM(int bpm) {}
    
-	public void registerObserver(BeatObserver o) {
+    public void registerObserver(BeatObserver o) {
 		heart.registerObserver(o);
 	}
     
-	public void removeObserver(BeatObserver o) {
+    public void removeObserver(BeatObserver o) {
 		heart.removeObserver(o);
 	}
      
-	public void registerObserver(BPMObserver o) {
+    public void registerObserver(BPMObserver o) {
 		heart.registerObserver(o);
 	}
   
-	public void removeObserver(BPMObserver o) {
+    public void removeObserver(BPMObserver o) {
 		heart.removeObserver(o);
 	}
 }

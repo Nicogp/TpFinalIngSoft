@@ -1,6 +1,6 @@
 package djview;
   
-public class HeartController implements ControllerInterface {
+public class HeartController implements ControllerInterface{
 	HeartModelInterface model;
 	DJView view;
   

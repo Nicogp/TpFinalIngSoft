@@ -9,7 +9,7 @@ public class ElectroTrainingController implements ControllerInterface{
     public ElectroTrainingController(ElectroTrainingInterface model) {
     	this.model = model;
 	//view = new DJView(this, new ElectroAdapter(model));
-        view = new ElectroTrainingView(this, model);
+        view = new ElectroTrainingView(this, new ElectroAdapter(model));
         view.createView();
         view.createControls();
         view.disableStopMenuItem();

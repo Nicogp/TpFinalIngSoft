@@ -4,8 +4,8 @@ import java.awt.*;
 import java.awt.event.*;
 import javax.swing.*;
 
-public class ElectroTrainingView implements ActionListener,  BeatObserver, BPMObserver {
-    ElectroTrainingInterface model;
+public class ElectroTrainingView implements ActionListener,  BeatObserver, BPMObserver, InterfaceVistas {
+    BeatModelInterface model;
     ControllerInterface controller;
     JFrame viewFrame;
     JPanel viewPanel;
@@ -22,8 +22,10 @@ public class ElectroTrainingView implements ActionListener,  BeatObserver, BPMOb
     JMenu menu;
     JMenuItem startMenuItem;
     JMenuItem stopMenuItem;
+    JComboBox cbox;
+    String modelos[]={"BeatModel","HeartModel","ElectroTrainingModel"};
 
-    public ElectroTrainingView(ControllerInterface controller, ElectroTrainingInterface model) {	
+    public ElectroTrainingView(ControllerInterface controller, BeatModelInterface model) {	
 		this.controller = controller;
 		this.model = model;
 		model.registerObserver((BeatObserver)this);
@@ -41,10 +43,34 @@ public class ElectroTrainingView implements ActionListener,  BeatObserver, BPMOb
         JPanel bpmPanel = new JPanel(new GridLayout(2, 1));
 	bpmPanel.add(beatBar);
         bpmPanel.add(bpmOutputLabel);
+        
         viewPanel.add(bpmPanel);
         viewFrame.getContentPane().add(viewPanel, BorderLayout.CENTER);
         viewFrame.pack();
         viewFrame.setVisible(true);
+        
+        cbox=new JComboBox(modelos);
+        bpmPanel.add(cbox);
+        cbox.addActionListener(new ActionListener() {
+                
+                public void actionPerformed(ActionEvent e) {
+                    if("BeatModel".equals(cbox.getSelectedItem())){
+                        //model.off();
+                        controller=new BeatController(model);
+                    
+                    }
+                    if("HeartModel".equals(cbox.getSelectedItem())){
+                        HeartModel heartModel = HeartModel.getInstance();
+                        //model.off();
+                        controller=new HeartController(heartModel);
+                    
+                    }
+            
+        }
+        
+        
+        });
+        
     }
     public void createControls() {
 	// Create all Swing components here
@@ -137,7 +163,7 @@ public class ElectroTrainingView implements ActionListener,  BeatObserver, BPMOb
     }
     public void updateBPM() {
 	if (model != null) {
-            int bpm = model.getNivel();
+            int bpm = model.getBPM();
             if (bpm == 0) {
 		if (bpmOutputLabel != null) {
                     bpmOutputLabel.setText("offline");
@@ -145,7 +171,7 @@ public class ElectroTrainingView implements ActionListener,  BeatObserver, BPMOb
             } else {
 		if (bpmOutputLabel != null) {
                     //bpmOutputLabel.setText("Current BPM: " + model.getBPM()+ " Instancias: "+ model.getContador());
-                    bpmOutputLabel.setText("Ejercicio Actual: " + model.getNivel());
+                    bpmOutputLabel.setText("Ejercicio Actual: " + model.getBPM());
 		}
             }
 	}
