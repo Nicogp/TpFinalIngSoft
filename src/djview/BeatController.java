@@ -1,10 +1,12 @@
 package djview;
   
-public class BeatController implements ControllerInterface {
+public class BeatController implements ControllerInterface 
+{
 	BeatModelInterface model;
 	DJView view;
    
-	public BeatController(BeatModelInterface model) {
+	public BeatController(BeatModelInterface model) 
+        {
 		this.model = model;
 		view = new DJView(this, model);
                 view.createView();
@@ -13,31 +15,35 @@ public class BeatController implements ControllerInterface {
 		view.enableStartMenuItem();
 		model.initialize();
 	}
-  
-	public void start() {
+        @Override
+	public void start() 
+        {
 		model.on();
 		view.disableStartMenuItem();
 		view.enableStopMenuItem();
 	}
-  
-	public void stop() {
+        @Override
+	public void stop() 
+        {
 		model.off();
 		view.disableStopMenuItem();
 		view.enableStartMenuItem();
 	}
-    
+        @Override
 	public void increaseBPM() 
 	{
         int bpm = model.getBPM();
         model.setBPM(bpm + 1);
 	}
-    
-	public void decreaseBPM() {
+        @Override
+	public void decreaseBPM() 
+        {
         int bpm = model.getBPM();
         model.setBPM(bpm - 1);
   	}
-  
- 	public void setBPM(int bpm) {
+        @Override
+ 	public void setBPM(int bpm) 
+        {
 		model.setBPM(bpm);
 	}
 }

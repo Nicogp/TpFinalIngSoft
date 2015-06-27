@@ -1,6 +1,7 @@
 package djview;
   
-public interface ControllerInterface {
+public interface ControllerInterface 
+{
 	void start();
 	void stop();
 	void increaseBPM();

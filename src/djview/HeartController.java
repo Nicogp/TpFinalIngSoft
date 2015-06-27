@@ -1,10 +1,11 @@
 package djview;
   
-public class HeartController implements ControllerInterface {
+public class HeartController implements ControllerInterface 
+{
 	HeartModelInterface model;
 	DJView view;
-  
-	public HeartController(HeartModelInterface model) {
+	public HeartController(HeartModelInterface model) 
+        {
 		this.model = model;
 		view = new DJView(this, new HeartAdapter(model));
                 view.createView();
@@ -12,18 +13,18 @@ public class HeartController implements ControllerInterface {
 		view.disableStopMenuItem();
 		view.disableStartMenuItem();
 	}
-  
+        @Override
 	public void start() {}
- 
+        @Override
 	public void stop() {}
-    
+        @Override
 	public void increaseBPM() 
 	{
 		HeartModel.getInstance();
 	}
-    
+        @Override
 	public void decreaseBPM() {}
-  
+        @Override
  	public void setBPM(int bpm) {}
 }
 
