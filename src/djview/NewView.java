@@ -23,7 +23,7 @@ import javax.swing.JTextField;
 import javax.swing.SwingConstants;
 
 
-public class NewView implements ActionListener,  BeatObserver, BPMObserver {
+public class NewView extends DJView implements ActionListener,  BeatObserver, BPMObserver {
     ControllerInterface controller;
     BeatModelInterface model;
     NewView view = this;
@@ -45,7 +45,7 @@ public class NewView implements ActionListener,  BeatObserver, BPMObserver {
     String Bpmlabel;
     JComboBox cbox;
     String modelos[]={"","BeatModel","HeartModel","ElectroTrainingModel"};
-
+    /*
     public NewView() {
         //final HeartModel heartModel = HeartModel.getInstance();
 	//final ControllerInterface model1 = new HeartController(heartModel, );
@@ -53,7 +53,15 @@ public class NewView implements ActionListener,  BeatObserver, BPMObserver {
 	//final ControllerInterface model2 = new BeatController(beatModel, this);
         //view = new DJView();
         createView();
-    }
+    }*/
+    public NewView(ControllerInterface controller, BeatModelInterface model) {
+                super(controller, model);
+        }
+        
+        public NewView(){
+                super();
+                createView();
+        }
     public void createView() {
 		// Create all Swing components here
         viewPanel = new JPanel(new GridLayout(1, 2));

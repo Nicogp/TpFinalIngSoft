@@ -4,7 +4,7 @@ import java.awt.*;
 import java.awt.event.*;
 import javax.swing.*;
 
-public class ElectroTrainingView implements ActionListener,  BeatObserver, BPMObserver, InterfaceVistas {
+public class ElectroTrainingView implements ActionListener,  BeatObserver, BPMObserver{
     BeatModelInterface model;
     ControllerInterface controller;
     JFrame viewFrame;

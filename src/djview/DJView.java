@@ -4,7 +4,7 @@ import java.awt.*;
 import java.awt.event.*;
 import javax.swing.*;
 
-public class DJView implements InterfaceVistas, ActionListener,  BeatObserver, BPMObserver {
+public class DJView implements ActionListener,  BeatObserver, BPMObserver {
     BeatModelInterface model;
     ControllerInterface controller;
     JFrame viewFrame;
@@ -22,8 +22,11 @@ public class DJView implements InterfaceVistas, ActionListener,  BeatObserver, B
     JMenu menu;
     JMenuItem startMenuItem;
     JMenuItem stopMenuItem;
-    JComboBox cbox;
-    String modelos[]={"BeatModel","HeartModel","ElectroTrainingModel"};
+
+    public DJView() {
+        
+    }
+    
 
     public DJView(ControllerInterface controller, BeatModelInterface model) {	
 		this.controller = controller;
@@ -40,34 +43,10 @@ public class DJView implements InterfaceVistas, ActionListener,  BeatObserver, B
         viewFrame.setSize(new Dimension(100, 80));
         bpmOutputLabel = new JLabel("offline", SwingConstants.CENTER);
 	beatBar = new BeatBar();
-	beatBar.setValue(0);
-        cbox=new JComboBox(modelos);
-        cbox.addActionListener(new ActionListener() {
-                
-                public void actionPerformed(ActionEvent e) {
-                    if("BeatModel".equals(cbox.getSelectedItem())){
-                        //model.off();
-                        controller.stop();
-                        controller=new BeatController(model);
-                    
-                    }
-                    if("HeartModel".equals(cbox.getSelectedItem())){
-                        HeartModel heartModel = HeartModel.getInstance();
-                        //model.off();
-                        controller.stop();
-                        controller=new HeartController(heartModel);
-                    
-                    }
-            
-        }
-        
-        
-        });
-        
+	beatBar.setValue(0);        
         JPanel bpmPanel = new JPanel(new GridLayout(2, 1));
 	bpmPanel.add(beatBar);
-        bpmPanel.add(bpmOutputLabel);
-        bpmPanel.add(cbox);
+        bpmPanel.add(bpmOutputLabel);        
         viewPanel.add(bpmPanel);
         viewFrame.getContentPane().add(viewPanel, BorderLayout.CENTER);
         viewFrame.pack();
@@ -192,4 +171,14 @@ public class DJView implements InterfaceVistas, ActionListener,  BeatObserver, B
 			 beatBar.setValue(100);
 		}
 	}
+    void disableSet() {
+        increaseBPMButton.setEnabled(false);
+        decreaseBPMButton.setEnabled(false);
+        setBPMButton.setEnabled(false);
+    }
+    public void enableSet(){
+        increaseBPMButton.setEnabled(true);
+        decreaseBPMButton.setEnabled(true);
+        setBPMButton.setEnabled(true);
+    }
 }
