@@ -1,8 +1,4 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
+
 package djview;
 
 import java.awt.BorderLayout;
@@ -24,44 +20,19 @@ import javax.swing.SwingConstants;
 
 
 public class NewView extends DJView implements ActionListener,  BeatObserver, BPMObserver {
-    ControllerInterface controller;
-    BeatModelInterface model;
     NewView view = this;
-    JFrame viewFrame;
-    JPanel viewPanel;
-    BeatBar beatBar;
-    JLabel bpmOutputLabel;
-    JFrame controlFrame;
-    JPanel controlPanel;
-    JLabel bpmLabel;
-    JTextField bpmTextField;
-    JButton setBPMButton;
-    JButton increaseBPMButton;
-    JButton decreaseBPMButton;
-    JMenuBar menuBar;
-    JMenu menu;
-    JMenuItem startMenuItem;
-    JMenuItem stopMenuItem;
     String Bpmlabel;
     JComboBox cbox;
     String modelos[]={"","BeatModel","HeartModel","ElectroTrainingModel"};
-    /*
-    public NewView() {
-        //final HeartModel heartModel = HeartModel.getInstance();
-	//final ControllerInterface model1 = new HeartController(heartModel, );
-        //final BeatModelInterface beatModel = new BeatModel();
-	//final ControllerInterface model2 = new BeatController(beatModel, this);
-        //view = new DJView();
-        createView();
-    }*/
+    
     public NewView(ControllerInterface controller, BeatModelInterface model) {
-                super(controller, model);
-        }
+        super(controller, model);
+    }
         
-        public NewView(){
-                super();
-                createView();
-        }
+    public NewView(){
+        super();
+        this.createView();
+    }
     public void createView() {
 		// Create all Swing components here
         viewPanel = new JPanel(new GridLayout(1, 2));
@@ -70,26 +41,16 @@ public class NewView extends DJView implements ActionListener,  BeatObserver, BP
         viewFrame.setSize(new Dimension(100, 80));
         bpmOutputLabel = new JLabel("offline", SwingConstants.CENTER);
         cbox=new JComboBox(modelos);
-        //view.createView();
         beatBar = new BeatBar();
         view.createControls();
         cbox.addActionListener(new ActionListener() {
                 
                 public void actionPerformed(ActionEvent e) {
                     if("BeatModel".equals(cbox.getSelectedItem())){
-                        //model.off();
-                        //BeatModelInterface model = new BeatModel();                        
-                        //controller=new BeatController(model, this);
-                        //controller=model2;
-                        //view.setController(controller);
-                        //view.setModel(beatModel);
-                        //setViewBeat();
-                        //beatModel.initialize();
                         if(controller!=null) {
                             controller.stop();
                             model.removeObserver((BeatObserver)view);
-                            model.removeObserver((BPMObserver)view);
-                            
+                            model.removeObserver((BPMObserver)view);                            
                         }
                             BeatModel beat = new BeatModel();
                             BeatController beatController= new BeatController(beat,view);
@@ -100,47 +61,33 @@ public class NewView extends DJView implements ActionListener,  BeatObserver, BP
                     
                     }
                     if("HeartModel".equals(cbox.getSelectedItem())){
-                        //HeartModel heartModel = HeartModel.getInstance();
-                        //model.off();
-                        //controller=new HeartController(heartModel);
                         if(controller!=null) {
                             controller.stop();
                             model.removeObserver((BeatObserver)view);
-                            model.removeObserver((BPMObserver)view);
-                            
+                            model.removeObserver((BPMObserver)view);                            
                         }
                             HeartModel heart = HeartModel.getInstance();
                             HeartController heartController = new HeartController(heart,view);
                             setController(heartController);
                             setModel(new HeartAdapter(heart));
                             model.registerObserver((BeatObserver)view);
-                            model.registerObserver((BPMObserver)view);
-                    
+                            model.registerObserver((BPMObserver)view);                    
                     }
                     if("ElectroTrainingModel".equals(cbox.getSelectedItem())){
-                        //ElectroTrainingModel electromodel = ElectroTrainingModel.getInstance();
-                        //model.off();
-                        //controller=new ElectroTrainingController(electromodel, view, cbox);
-                        //view.setController(controller);
-                        //view.setModel((BeatModelInterface) electromodel);
                         if(controller!=null) {
                             controller.stop();
                             model.removeObserver((BeatObserver)view);
-                            model.removeObserver((BPMObserver)view);
-                            
+                            model.removeObserver((BPMObserver)view);                            
                         }
                             ElectroTrainingModel electromodel = ElectroTrainingModel.getInstance();
                             ElectroTrainingController electro= new ElectroTrainingController(electromodel, view);
                             setController(electro);
                             setModel((new ElectroAdapter(electromodel)));
                             model.registerObserver((BeatObserver)view);
-                            model.registerObserver((BPMObserver)view);
-                    
+                            model.registerObserver((BPMObserver)view);                    
                     }
             
-        }
-        
-        
+        }        
         });
         JPanel bpmPanel = new JPanel(new GridLayout(2, 1));
 	bpmPanel.add(beatBar);
@@ -178,8 +125,6 @@ public class NewView extends DJView implements ActionListener,  BeatObserver, BP
     }
     
     public void setViewBeat(){
-        //view.createView(cbox);
-        //view.createControls();
 	view.disableStopMenuItem();
 	view.enableStartMenuItem();
 	model.initialize();
@@ -189,8 +134,8 @@ public class NewView extends DJView implements ActionListener,  BeatObserver, BP
 	view.disableStartMenuItem();
     }
 
+    @Override
    public void createControls() {
-		// Create all Swing components here
         JFrame.setDefaultLookAndFeelDecorated(true);
         controlFrame = new JFrame("Control");
         controlFrame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);

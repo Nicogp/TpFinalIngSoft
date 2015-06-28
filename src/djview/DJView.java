@@ -101,8 +101,8 @@ public class DJView implements ActionListener,  BeatObserver, BPMObserver {
 
         JPanel buttonPanel = new JPanel(new GridLayout(1, 2));
 
-		buttonPanel.add(decreaseBPMButton);
-		buttonPanel.add(increaseBPMButton);
+	buttonPanel.add(decreaseBPMButton);
+	buttonPanel.add(increaseBPMButton);
 
         JPanel enterPanel = new JPanel(new GridLayout(1, 2));
         enterPanel.add(bpmLabel);
@@ -159,7 +159,6 @@ public class DJView implements ActionListener,  BeatObserver, BPMObserver {
 				}
 			} else {
 				if (bpmOutputLabel != null) {
-                                    //bpmOutputLabel.setText("Current BPM: " + model.getBPM()+ " Instancias: "+ model.getContador());
                                     bpmOutputLabel.setText("Current BPM: " + model.getBPM());
 				}
 			}

@@ -3,13 +3,13 @@ package djview;
 
 public class ElectroTrainingController implements ControllerInterface{
     ElectroTrainingInterface model;
-    //DJView view;
     //ElectroTrainingView view;
     DJView view;
 
     public ElectroTrainingController(ElectroTrainingInterface model) {
         this.model = model;
         view = new DJView(this, new ElectroAdapter(model));
+        //view = new ElectroTrainingView(this, new ElectroAdapter(model));
         view.createView();        
         view.createControls();
         view.enableSet();
@@ -19,11 +19,7 @@ public class ElectroTrainingController implements ControllerInterface{
   
     public ElectroTrainingController(ElectroTrainingInterface model, NewView view) {
     	this.model = model;
-	//view = new DJView(this, new ElectroAdapter(model));
-        //view = new ElectroTrainingView(this, new ElectroAdapter(model));
         this.view=view;
-        //view.createView();
-        //view.createControls();
         view.setElectroView();
         view.enableSet();
         view.disableStopMenuItem();
