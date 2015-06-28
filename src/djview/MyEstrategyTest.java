@@ -11,16 +11,6 @@ package djview;
  */
 public class MyEstrategyTest {
     public static void main(String[] args) {
-                /*
-		Duck mallard = new MallardDuck();
-		mallard.performQuack();
-		mallard.performFly();
-   
-		Duck model = new ModelDuck();
-		model.performFly();
-		model.setFlyBehavior(new FlyRocketPowered());
-		model.performFly();
-                            */
-            Modelo beat = new Beat();
+               NewView view = new NewView();
 	}
 }

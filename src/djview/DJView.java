@@ -47,12 +47,14 @@ public class DJView implements InterfaceVistas, ActionListener,  BeatObserver, B
                 public void actionPerformed(ActionEvent e) {
                     if("BeatModel".equals(cbox.getSelectedItem())){
                         //model.off();
+                        controller.stop();
                         controller=new BeatController(model);
                     
                     }
                     if("HeartModel".equals(cbox.getSelectedItem())){
                         HeartModel heartModel = HeartModel.getInstance();
                         //model.off();
+                        controller.stop();
                         controller=new HeartController(heartModel);
                     
                     }

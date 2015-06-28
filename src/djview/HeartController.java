@@ -2,13 +2,15 @@ package djview;
   
 public class HeartController implements ControllerInterface{
 	HeartModelInterface model;
-	DJView view;
+	NewView view;
   
-	public HeartController(HeartModelInterface model) {
+	public HeartController(HeartModelInterface model, NewView view) {
 		this.model = model;
-		view = new DJView(this, new HeartAdapter(model));
-                view.createView();
-                view.createControls();
+                this.view=view;
+		//view = new DJView(this, new HeartAdapter(model));
+                //view.createView();
+                //view.createControls();
+                view.setHeartView();
 		view.disableStopMenuItem();
 		view.disableStartMenuItem();
 	}

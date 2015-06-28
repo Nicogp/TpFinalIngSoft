@@ -4,14 +4,18 @@ package djview;
 public class ElectroTrainingController implements ControllerInterface{
     ElectroTrainingInterface model;
     //DJView view;
-    ElectroTrainingView view;
+    //ElectroTrainingView view;
+    NewView view;
   
-    public ElectroTrainingController(ElectroTrainingInterface model) {
+    public ElectroTrainingController(ElectroTrainingInterface model, NewView view) {
     	this.model = model;
 	//view = new DJView(this, new ElectroAdapter(model));
-        view = new ElectroTrainingView(this, new ElectroAdapter(model));
-        view.createView();
-        view.createControls();
+        //view = new ElectroTrainingView(this, new ElectroAdapter(model));
+        this.view=view;
+        //view.createView();
+        //view.createControls();
+        view.setElectroView();
+        view.enableSet();
         view.disableStopMenuItem();
 	view.enableStartMenuItem();
     }

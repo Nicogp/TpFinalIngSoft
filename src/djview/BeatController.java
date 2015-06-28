@@ -2,13 +2,15 @@ package djview;
   
 public class BeatController implements ControllerInterface{
 	BeatModelInterface model;
-	DJView view;
-   
-	public BeatController(BeatModelInterface model) {
+	// view;
+        NewView view;
+	public BeatController(BeatModelInterface model, NewView view) {
 		this.model = model;
-		view = new DJView(this, model);
-                view.createView();
-                view.createControls();
+                this.view=view;
+		view.setBeatView();
+                //view.createView();
+                //view.createControls();
+                view.enableSet();
 		view.disableStopMenuItem();
 		view.enableStartMenuItem();
 		model.initialize();

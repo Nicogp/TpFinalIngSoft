@@ -10,8 +10,9 @@ package djview;
  * @author Nicolás
  */
 public class Electro extends Modelo{
+    ElectroTrainingInterface electroInterface = ElectroTrainingModel.getInstance();
     public Electro(){
-        //ElectroTrainingModel Electro=  ElectroTrainingModel.getInstance();
-        //model = new ElectroTrainingController(Electro);
+        controller = new ElectroTrainingController(electroInterface);
+        view = new ElectroTrainingView(controller, new ElectroAdapter(electroInterface));
     }
 }

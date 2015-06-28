@@ -7,4 +7,6 @@ public class Heart extends Modelo{
         controller = new HeartController(heartModel);
         view = new DJView(controller, new HeartAdapter(heartModel));
     }
+    
+    
 }
