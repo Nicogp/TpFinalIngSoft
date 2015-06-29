@@ -19,7 +19,7 @@ import javax.swing.JTextField;
 import javax.swing.SwingConstants;
 
 
-public final class NewView extends DJView implements ActionListener,  BeatObserver, BPMObserver {
+public class NewView extends DJView implements ActionListener,  BeatObserver, BPMObserver {
     NewView view = this;
     String Bpmlabel;
     JComboBox cbox;
@@ -33,7 +33,6 @@ public final class NewView extends DJView implements ActionListener,  BeatObserv
         super();
         this.createView();
     }
-    @Override
     public void createView() {
 		// Create all Swing components here
         viewPanel = new JPanel(new GridLayout(1, 2));
